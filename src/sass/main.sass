@@ -1,0 +1,57 @@
+html
+    height:  100%
+
+body
+    overflow: hidden
+    background: rgb(0,0,43)
+    background: linear-gradient(68deg, rgba(0,0,43,1) 0%, rgba(113,2,2,1) 91%)
+    
+//-------------Vis-none------------------    
+.vis
+    display: block
+
+.none
+    display: none
+    
+    // -------------------Start game-----------------------------    
+.btn 
+    padding: .5rem
+    border-radius: 5px
+    border: 1px solid #510499
+    background: rgba(255, 255, 255, 0)
+    width: 120px
+    &:hover
+            color: white
+            background: #510499
+    &__start,
+    &__continue
+        margin: 1rem
+        
+
+.input
+    text-transform: uppercase
+    font-weight: bold
+
+.start-container
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    width: 400px
+    height: 250px
+    border: 1px solid black
+    margin-left: 0
+    margin-right: 0
+    margin: auto
+    margin-top: 10rem
+    background: rgba(255, 255, 255, 0.5)
+    .heroName
+        display: block
+        padding-top: 0.6rem
+        font-size: .8rem
+        color: #510499
+        font-weight: bold
+    .name
+        display: block
+        text-align: left
+        width: 180px

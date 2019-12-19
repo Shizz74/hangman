@@ -1,25 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-</head>
-<body>
-    <div class="start-container">
-        <div class="name">
-            <label for="heroName" class="heroName">Hero name</label>
-            <input id="heroName" type="text" name="heroName" class="input input__hero-name" maxlength="15">
+  </head>
+  <body>
+    <div class="container">
+      <div class="top">
+        <div id="counter">
+          <span class="conter-number"></span>
         </div>
-        <button class="btn btn__start" id="startGame" type="button">Start game</button>
-        <span>OR</span>
-        <button class="btn btn__continue" id="continueGame" type="button">Continue</button>
+        <div id="word" class="word">
+        </div>
+      </div>
+      <div class="bottom">
+        <div id="letters" class="letters"></div>
+        <div id="buttons" class="buttons">
+          <button id="startGame" class="btn btn__startGame">Start</button>
+          <button id="newWord" class="btn btn__startGame">new</button>
+          <span>Press "Enter" to start or for new word.</span>
+        </div>
+      </div>
     </div>
-    <div class="game-container none">
-        <div class="game name">Game name</div>
-        <div class="game-menu">Test</div>
-        <div class="game-map"></div>
-    </div>
-</body>
+    <script
+			  src="https://code.jquery.com/jquery-3.4.1.min.js"
+			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			  crossorigin="anonymous"></script>
+  </body>
 </html>

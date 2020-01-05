@@ -1,13 +1,32 @@
 document.addEventListener("DOMContentLoaded", function () {
+    
+    // {
+    //     buttons.addEventListener("click", function() {
+    //         fetch("http://api.wordnik.com/v4/words.json/randomWord?api_key=n727snhb1o62rha1onsq6xrkvee2s44b0hj9z85ryicflb6yi")
+    //         .then(resp => resp.json())    
+    //         .then(resp => {
+    //                 console.log("Przykład 1:");
+    //                 console.log(resp.word);
+    //                 word = resp.word;
+    //                 console.log("Podmieniona " + word);
+                    
+    //             })
+    //     })
+    // }
+    
     let buttonStart = document.querySelector("#startGame");
     let newWord = document.querySelector('#newWord');
+    
     buttons.addEventListener("click", startGame);
 
-    let word = "tekst";
+    let word = "Test";
     let tab = [];
     let i, j, k;
     let counter = 13;
     let tempt = 1;
+
+    
+
 
     $(document).keydown(function(e) {
         if (e.key === "Enter") { 
@@ -24,12 +43,12 @@ document.addEventListener("DOMContentLoaded", function () {
         //Split word to letters
         for (i = 0; i < word.length; i++) {
             tab += [word.charAt(i)];
+            document.querySelector('#word').innerHTML += '<div id="char' + j + '" class="char"></div>';
         };
         //Display letter in DOM
-        for (j = 0; j < tab.length; j++) {
-            document.querySelector('#word').innerHTML += '<div id="char' + j + '" class="char"></div>';
-        }
     }
+
+
     //Testing if keyboard pressed key is in word
     document.onkeypress = function (evt) {
         evt = evt || window.event;
@@ -67,5 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+
+    
 
 });

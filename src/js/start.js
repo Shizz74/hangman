@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let word = "Test";
     let tab = [];
-    let i, j, k;
+    let i, j;
     let counter = 13;
     let tempt = 1;
 
@@ -40,12 +40,11 @@ document.addEventListener("DOMContentLoaded", function () {
     function startGame() {
         document.querySelector(".conter-number").innerHTML = counter;
         document.querySelector("#counter").className = "counter";
-        //Split word to letters
+        //Split word to letters and display letter in DOM
         for (i = 0; i < word.length; i++) {
             tab += [word.charAt(i)];
             document.querySelector('#word').innerHTML += '<div id="char' + j + '" class="char"></div>';
         };
-        //Display letter in DOM
     }
 
 
@@ -56,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let charStr = String.fromCharCode(charCode);
         console.log(charStr);
 
-        for (k = 0; k < tab.length; k++) {
+        for (let k = 0; k < tab.length; k++) {
             if (tab[k] === charStr) {
                 document.querySelectorAll("#char").innerHTML = tab[k];
                 tempt = 1;

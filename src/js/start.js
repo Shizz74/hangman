@@ -124,6 +124,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 //To do
+// Change id #newWord in html
 // Enter change word but cunters is down. He need to be reset. 
 // At 0 point it's need to be display a popup about lose and option to play again 
 // Display keyboard after start the game, ane disamble them when user use that letters

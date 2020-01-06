@@ -14,21 +14,19 @@ document.addEventListener("DOMContentLoaded", function () {
     // }
 
 
-    function newSingeWord() {
-        fetch("http://api.wordnik.com/v4/words.json/randomWord?api_key=n727snhb1o62rha1onsq6xrkvee2s44b0hj9z85ryicflb6yi")
-            .then(resp => resp.json())
-            .then(resp => {
-                word = resp.word;
-                console.log("Podmieniona " + word);
-            })
-    }
+    // function newSingeWord() {
+    //     fetch("http://api.wordnik.com/v4/words.json/randomWord?api_key=n727snhb1o62rha1onsq6xrkvee2s44b0hj9z85ryicflb6yi")
+    //         .then(resp => resp.json())
+    //         .then(resp => {
+    //             word = resp.word;
+    //             console.log("Podmieniona " + word);
+    //         })
+    // }
 
 
     let buttonStart = document.querySelector("#startGame");
     let newWord = document.querySelector('#newWord');
-
-    buttonStart.addEventListener("click", startGame);
-    newWord.addEventListener("click", clearGameBoard);
+    let losePopup = document.querySelector(".popup-container");
 
     let word = "test";
     let tab = [];
@@ -37,6 +35,9 @@ document.addEventListener("DOMContentLoaded", function () {
     let goodLetter = 0;
     let startGameCounter = 0;
 
+
+    buttonStart.addEventListener("click", startGame);
+    newWord.addEventListener("click", clearGameBoard);
 
 
 
@@ -85,6 +86,11 @@ document.addEventListener("DOMContentLoaded", function () {
             if (goodLetter == 0) {
                 counter--;
                 document.querySelector("#counter").innerHTML = counter;
+
+                if(counter === 0){
+                    losePopup.classList.add('visible');
+                    losePopup.classList.remove('dis-none');
+                }
             };
 
             goodLetter = 0;
@@ -103,14 +109,15 @@ document.addEventListener("DOMContentLoaded", function () {
     function clearGameBoard() {
         let removeLetters = document.querySelector("#word");
         console.log("Czyszczenie");
-        word = "";
         tab = [];
+        counter = 14; // Change value of counter from 13 to 14
         console.log("Czyszczenie worda, słowo: " + word)
-        word = "12345678";
+       // word = "12345678";
         console.log("Dodanie cyfr jako slowo: " + word)
         while (removeLetters.firstChild) {
             removeLetters.removeChild(removeLetters.firstChild);
-        }
+        };
+        losePopup.classList.add('dis-none');
         startGame();
     }
     //-------------------------------

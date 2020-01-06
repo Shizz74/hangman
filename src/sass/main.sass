@@ -97,7 +97,6 @@ body
 
 
 //-----------------Word char-----------------
-
 .char
   display: flex
   justify-content: center
@@ -137,6 +136,19 @@ body
     border: 2px solid black
     margin: .3rem
 
-
 .dis-none
   display: none
+
+
+// PopUp-------------
+
+.popup-container
+  width: 100vw
+  height: 100vh
+  z-index: 11
+  & .losePopup
+    background: rgba(255, 255, 255, 0.1)
+    display: flex
+    flex-direction: columns
+    justify-content: center
+    align-items: centers

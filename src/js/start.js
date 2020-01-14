@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-
+    // For now don't use this script. Use function newSingleWord()
     // {
     //     buttons.addEventListener("click", function() {
     //         fetch("http://api.wordnik.com/v4/words.json/randomWord?api_key=n727snhb1o62rha1onsq6xrkvee2s44b0hj9z85ryicflb6yi")
@@ -14,14 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // }
 
 
-    // function newSingeWord() {
-    //     fetch("http://api.wordnik.com/v4/words.json/randomWord?api_key=n727snhb1o62rha1onsq6xrkvee2s44b0hj9z85ryicflb6yi")
-    //         .then(resp => resp.json())
-    //         .then(resp => {
-    //             word = resp.word;
-    //             console.log("Podmieniona " + word);
-    //         })
-    // }
+    
 
 
     let buttonStart = document.querySelector("#startGame");
@@ -39,6 +32,15 @@ document.addEventListener("DOMContentLoaded", function () {
     buttonStart.addEventListener("click", startGame);
     newWord.addEventListener("click", clearGameBoard);
 
+    // function newSingleWord() {
+    //     fetch("http://api.wordnik.com/v4/words.json/randomWord?api_key=n727snhb1o62rha1onsq6xrkvee2s44b0hj9z85ryicflb6yi")
+    //         .then(resp => resp.json())
+    //         .then(resp => {
+    //             word = resp.word;
+    //             console.log("Podmieniona " + word);
+    //         })
+    // }
+    //newSingleWord();
 
 
     $(document).keydown(function (e) {
@@ -57,8 +59,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Start game with first word
-    function startGame() {
-        //newSingeWord();
+    function startGame() { 
+        console.log("Słowo to: " + word);
+        counter = 13;
         document.querySelector(".conter-number").innerHTML = counter;
         document.querySelector("#counter").className = "counter";
         //Split word to letters and display letter in DOM
@@ -83,6 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 };
             };
 
+            // Checking if life is 0 and user lose
             if (goodLetter == 0) {
                 counter--;
                 document.querySelector("#counter").innerHTML = counter;
@@ -108,16 +112,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function clearGameBoard() {
         let removeLetters = document.querySelector("#word");
+
         console.log("Czyszczenie");
         tab = [];
         counter = 14; // Change value of counter from 13 to 14
         console.log("Czyszczenie worda, słowo: " + word)
-       // word = "12345678";
+        console.log("Counter: " +counter)
+        word = "12345678";
         console.log("Dodanie cyfr jako slowo: " + word)
         while (removeLetters.firstChild) {
             removeLetters.removeChild(removeLetters.firstChild);
         };
         losePopup.classList.add('dis-none');
+        //newSingleWord();
         startGame();
     }
     //-------------------------------

@@ -32,15 +32,15 @@ document.addEventListener("DOMContentLoaded", function () {
     buttonStart.addEventListener("click", startGame);
     newWord.addEventListener("click", clearGameBoard);
 
-    // function newSingleWord() {
-    //     fetch("http://api.wordnik.com/v4/words.json/randomWord?api_key=n727snhb1o62rha1onsq6xrkvee2s44b0hj9z85ryicflb6yi")
-    //         .then(resp => resp.json())
-    //         .then(resp => {
-    //             word = resp.word;
-    //             console.log("Podmieniona " + word);
-    //         })
-    // }
-    //newSingleWord();
+    function newSingleWord() {
+        fetch("http://api.wordnik.com/v4/words.json/randomWord?api_key=n727snhb1o62rha1onsq6xrkvee2s44b0hj9z85ryicflb6yi")
+            .then(resp => resp.json())
+            .then(resp => {
+                word = resp.word;
+                console.log("Podmieniona " + word);
+            })
+    }
+    newSingleWord();
 
 
     $(document).keydown(function (e) {
@@ -48,12 +48,10 @@ document.addEventListener("DOMContentLoaded", function () {
             if(startGameCounter == 0){
                 console.log("startGameCounter wynosi: " + startGameCounter)
                 startGame();
-                startGameCounter = 1;
-                console.log("startGameCounter wynosi: " + startGameCounter);
+                losePopup.classList.add('dis-none');
             }
             else {
-                clearGameBoard();
-                console.log("startGameCounter wynosi: " + startGameCounter)
+                console.log("nothing")
             }
         }
     });
@@ -62,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function startGame() { 
         console.log("Słowo to: " + word);
         counter = 13;
-        document.querySelector(".conter-number").innerHTML = counter;
+        //document.querySelector(".conter-number").innerHTML = counter;
         document.querySelector("#counter").className = "counter";
         //Split word to letters and display letter in DOM
         for (i = 0; i < word.length; i++) {
@@ -92,6 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.querySelector("#counter").innerHTML = counter;
 
                 if(counter === 0){
+                    clearGameBoard();
                     losePopup.classList.add('visible');
                     losePopup.classList.remove('dis-none');
                 }
@@ -118,14 +117,14 @@ document.addEventListener("DOMContentLoaded", function () {
         counter = 14; // Change value of counter from 13 to 14
         console.log("Czyszczenie worda, słowo: " + word)
         console.log("Counter: " +counter)
-        word = "12345678";
+        word = "";
         console.log("Dodanie cyfr jako slowo: " + word)
         while (removeLetters.firstChild) {
             removeLetters.removeChild(removeLetters.firstChild);
         };
         losePopup.classList.add('dis-none');
-        //newSingleWord();
-        startGame();
+        newSingleWord();
+        //startGame();
     }
     //-------------------------------
 

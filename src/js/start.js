@@ -27,6 +27,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let counter = 13;
     let goodLetter = 0;
     let startGameCounter = 0;
+    let useLetter = [];
+    let letterWasUse = 0;
 
 
     //buttonStart.addEventListener("click", startGame);
@@ -46,12 +48,10 @@ document.addEventListener("DOMContentLoaded", function () {
     $(document).keydown(function (e) {
         if (e.key === "Enter") {
             if (startGameCounter == 0) {
-                console.log("startGameCounter wynosi: " + startGameCounter)
                 startGame();
                 losePopup.classList.add('dis-none');
                 document.querySelector(".conter-number").innerHTML = counter;
                 startGameCounter = 1;
-                console.log("startGameCounter wynosi: " + startGameCounter)
             }
             else {
                 return false;
@@ -77,15 +77,30 @@ document.addEventListener("DOMContentLoaded", function () {
             let charCode = evt.keyCode || evt.which;
             let charStr = String.fromCharCode(charCode);
             console.log(charStr);
-            // Tested if pressed key is uppercase or lowercase and it's a letter
+            //Test if letter was pressed before
+            for(let m = 0; m< useLetter.length; m++){
+                if( charStr == useLetter[m]){
+                    letterWasUse = 1;
+                }
+                else {
+                    letterWasUse = 0;
+                }
+            };
+
+            if(letterWasUse == 0){
+                // Tested if pressed key is uppercase or lowercase and it's a letter
             if (event.keyCode >= 97 && event.keyCode <= 122) {
                 for (k = 0; k < tab.length; k++) {
                     if (tab[k] === charStr) {
                         document.querySelectorAll("#char").innerHTML = tab[k];
                         goodLetter++;
                         console.log("dobrze " + tab[k] + " " + goodLetter)
+                        useLetter += tab[k];
+                        console.log(useLetter)
                     };
                 };
+
+                
 
 
                 // Checking if life is 0 and user lose
@@ -104,6 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 goodLetter = 0;
 
             };
+            }
         }
         //------------------------------------------------
     }
@@ -116,6 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         console.log("Czyszczenie");
         tab = [];
+        useLetter = [];
         word = "";
         while (removeLetters.firstChild) {
             removeLetters.removeChild(removeLetters.firstChild);
@@ -174,7 +191,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Display keyboard after start the game, ane disamble them when user use that letters
     // show letter if user click right one.
     // Display message about win, and option to play again. 
-    // Enter could be pressed multitimes and always working. He did not supposted
     // And more.
 
 });

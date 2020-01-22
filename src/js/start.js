@@ -50,9 +50,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 startGame();
                 losePopup.classList.add('dis-none');
                 document.querySelector(".conter-number").innerHTML = counter;
+                startGameCounter = 1;
+                console.log("startGameCounter wynosi: " + startGameCounter)
             }
             else {
-                console.log("nothing")
+                return false;
             }
         }
     });
@@ -60,16 +62,14 @@ document.addEventListener("DOMContentLoaded", function () {
     // Start game with first word
     function startGame() {
         createKeyboard();
+        counter = 14; // Change value of counter from 13 to 14
         console.log("Słowo to: " + word);
-        counter = 13;
-        //document.querySelector(".conter-number").innerHTML = counter;
         document.querySelector("#counter").className = "counter";
         //Split word to letters and display letter in DOM
         for (i = 0; i < word.length; i++) {
             tab += [word.charAt(i)];
             document.querySelector('#word').innerHTML += '<div id="char' + i + '" class="char">' + tab[i] + '</div>';
         };
-        //buttonStart.classList.add('dis-none')
 
         //Testing if keyboard pressed key is in word
         document.onkeypress = function (evt) {
@@ -91,10 +91,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Checking if life is 0 and user lose
                 if (goodLetter == 0) {
                     counter--;
-                    document.querySelector("#counter").innerHTML = counter;
+                    document.querySelector(".conter-number").innerHTML = counter;
 
                     if (counter === 0) {
                         clearGameBoard();
+                        startGameCounter = 0;
                         losePopup.classList.add('visible');
                         losePopup.classList.remove('dis-none');
                     }
@@ -108,10 +109,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     //-----------------------------------------
 
-
-
-
-
     //Clearing game board and start new one
 
     function clearGameBoard() {
@@ -119,17 +116,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         console.log("Czyszczenie");
         tab = [];
-        counter = 14; // Change value of counter from 13 to 14
-        console.log("Czyszczenie worda, słowo: " + word)
-        console.log("Counter: " + counter)
         word = "";
-        console.log("Dodanie cyfr jako slowo: " + word)
         while (removeLetters.firstChild) {
             removeLetters.removeChild(removeLetters.firstChild);
         };
         losePopup.classList.add('dis-none');
         newSingleWord();
-        //startGame();
     }
     //-------------------------------
 
@@ -179,7 +171,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     //To do 
-    // Check wtf is wrong with line 65
     // Display keyboard after start the game, ane disamble them when user use that letters
     // show letter if user click right one.
     // Display message about win, and option to play again. 

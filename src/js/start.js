@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let startGameCounter = 0;
     let useLetter = [];
     let letterWasUse = 0;
+    let listOfAllKey;
 
 
     //buttonStart.addEventListener("click", startGame);
@@ -62,6 +63,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Start game with first word
     function startGame() {
         createKeyboard();
+        listOfAllKey = document.querySelectorAll('#letters li');
+        console.log(listOfAllKey);
         counter = 14; // Change value of counter from 13 to 14
         console.log("Słowo to: " + word);
         document.querySelector("#counter").className = "counter";
@@ -94,6 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (tab[k] === charStr) {
                         document.querySelectorAll("#char").innerHTML = tab[k];
                         goodLetter++;
+                        letter = document.querySelector('#' + charStr ).classList.add('green');
                         console.log("dobrze " + tab[k] + " " + goodLetter)
                         useLetter += tab[k];
                         console.log(useLetter)
@@ -105,6 +109,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 // Checking if life is 0 and user lose
                 if (goodLetter == 0) {
+
+                    letter = document.querySelector('#' + charStr ).classList.add('red');
                     counter--;
                     document.querySelector(".conter-number").innerHTML = counter;
 

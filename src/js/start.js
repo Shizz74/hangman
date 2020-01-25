@@ -78,49 +78,43 @@ document.addEventListener("DOMContentLoaded", function () {
             let charStr = String.fromCharCode(charCode);
             console.log(charStr);
             //Test if letter was pressed before
-            for(let m = 0; m< useLetter.length; m++){
-                if( charStr == useLetter[m]){
-                    letterWasUse = 1;
+            for (let m = 0; m < useLetter.length; m++) {
+                charStr == useLetter[m] ? letterWasUse = 1 : letterWasUse =0
                 }
-                else {
-                    letterWasUse = 0;
-                }
-            };
 
-            if(letterWasUse == 0){
+            if (letterWasUse == 0) {
                 useLetter += charStr;
-            console.log(useLetter)
                 // Tested if pressed key is uppercase or lowercase and it's a letter
-            if (event.keyCode >= 97 && event.keyCode <= 122) {
-                for (k = 0; k < tab.length; k++) {
-                    if (tab[k] === charStr) {
-                        document.querySelectorAll("#char").innerHTML = tab[k];
-                        goodLetter++;
-                        letter = document.querySelector('#' + charStr ).classList.add('green');
-                        console.log("dobrze " + tab[k] + " " + goodLetter);
+                if (event.keyCode >= 97 && event.keyCode <= 122) {
+                    for (k = 0; k < tab.length; k++) {
+                        if (tab[k] === charStr) {
+                            document.querySelectorAll("#char").innerHTML = tab[k];
+                            goodLetter++;
+                            letter = document.querySelector('#' + charStr).classList.add('green');
+                            console.log("dobrze " + tab[k] + " " + goodLetter);
+                        };
                     };
+
+
+
+
+                    // Checking if life is 0 and user lose
+                    if (goodLetter == 0) {
+                        letter = document.querySelector('#' + charStr).classList.add('red');
+                        counter--;
+                        document.querySelector(".conter-number").innerHTML = counter;
+
+                        if (counter === 0) {
+                            clearGameBoard();
+                            startGameCounter = 0;
+                            losePopup.classList.add('visible');
+                            losePopup.classList.remove('dis-none');
+                        }
+                    };
+
+                    goodLetter = 0;
+
                 };
-
-                
-
-
-                // Checking if life is 0 and user lose
-                if (goodLetter == 0) {
-                    letter = document.querySelector('#' + charStr ).classList.add('red');
-                    counter--;
-                    document.querySelector(".conter-number").innerHTML = counter;
-
-                    if (counter === 0) {
-                        clearGameBoard();
-                        startGameCounter = 0;
-                        losePopup.classList.add('visible');
-                        losePopup.classList.remove('dis-none');
-                    }
-                };
-
-                goodLetter = 0;
-
-            };
             }
         }
         //------------------------------------------------
@@ -191,7 +185,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //To do 
     // Display keyboard after start the game, ane disamble them when user use that letters
-    // show letter if user click right one.
     // Display message about win, and option to play again. 
     // And more.
 

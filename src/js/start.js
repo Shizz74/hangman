@@ -22,6 +22,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let losePopup = document.querySelector("#losePopup");
     let winPopup = document.querySelector("#winPopup");
 
+    const apiUrl = "api_key=n727snhb1o62rha1onsq6xrkvee2s44b0hj9z85ryicflb6yi";
+    const randomWordUrl = "https://api.wordnik.com/v4/words.json/randomWord?hasDictionaryDef=true&excludePartOfSpeech=interjection%2Cpronoun%2Cpreposition%2Cabbreviation%2Caffix%2Carticle%2Cauxiliary-verb%2Cconjunction%2Cdefinite-article%2Cfamily-name%2Cgiven-name%2Cidiom%2Cimperative%2Cnoun-plural%2Cpast-participle%2Cproper-noun%2Cproper-noun-plural%2Csuffix%2Cverb-intransitive%2Cverb-transitive&"
     let word = "";
     let letterArray = [];
     let i, k;
@@ -30,19 +32,52 @@ document.addEventListener("DOMContentLoaded", function () {
     let startGameCounter = 0;
     let useLetter = [];
     let letterWasUse = 0;
+    const alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','q','p','r','s','t','u','v','w','x','y','z'];
+    let checkAlphabet = 0;
+    let word2 = [];
+    let word22;
+
+
+    // ,noun-posessive
+    // ,phrasal-prefix
+    // ,proper-noun-posessive
+
 
 
     //buttonStart.addEventListener("click", startGame);
     //newWord.addEventListener("click", clearGameBoard);
 
     function newSingleWord() {
-        fetch("http://api.wordnik.com/v4/words.json/randomWord?api_key=n727snhb1o62rha1onsq6xrkvee2s44b0hj9z85ryicflb6yi")
+        fetch(randomWordUrl + apiUrl)
             .then(resp => resp.json())
             .then(resp => {
                 word = resp.word;
+                checkAlphabet = 0;
+                console.log("Test: " + checkAlphabet);
+                console.log("Słowo to: " + word);
+                word = word.toLowerCase();
+                console.log("Zmienjszone słowo to: " + word);
+                word2 = [...word];
+                word22 = word2.length;
+                for (let w = 0; w < word2.length; w++) {
+                    //console.log("word2[w]: " + word2[w])
+                    for( let x = 0; x < alphabet.length; x++){
+                        if( word2[w] === alphabet[x]){
+                            //console.log("alphabet[x]: " + alphabet[x])
+                            checkAlphabet +=1;
+                        }
+                    }
+                }
+                console.log( word2.length + " and " + checkAlphabet);
+                console.log(word2);
                 console.log("Podmieniona " + word);
             })
+            // if(checkAlphabet !== word22){
+            //     newSingleWord();
+            //     console.log("Odpałka");
+            // }
     }
+
     newSingleWord();
 
 
@@ -56,14 +91,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 startGameCounter = 1;
             }
             else {
-                //return false;
-                console.log("to tu");
+                return false;
             }
         }
     });
 
     // Start game with first word
     function startGame() {
+        document.onkeydown = function (e) {
+            return true
+        }
         createKeyboard();
         counter = 14; // Change value of counter from 13 to 14
         console.log("Słowo to: " + word);
@@ -71,6 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
         //Split word to letters and display letter in DOM
         for (i = 0; i < word.length; i++) {
             letterArray += [word.charAt(i)];
+            console.log("Przeliterowanie: " + word[i]);
             document.querySelector('#word').innerHTML += '<div id="char' + i + '" class="char"></div>';
         };
         //let newLetterArray = letterArray.split(",");
@@ -91,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (letterWasUse == 0) {
                 useLetter += charStr;
                 // Tested if pressed key is uppercase or lowercase and it's a letter
-                if (event.keyCode >= 97 && event.keyCode <= 122) {
+                if (evt.keyCode >= 97 && evt.keyCode <= 122) {
                     for (k = 0; k < letterArray.length; k++) {
                         if (letterArray[k] === charStr) {
                             document.querySelectorAll("#char").innerHTML = letterArray[k];
@@ -108,8 +146,16 @@ document.addEventListener("DOMContentLoaded", function () {
                             }
                         }
                     };
-                    if(newLetterArray.length === 0){
+                    if (newLetterArray.length === 0) {
                         winTheGame();
+                        document.onkeydown = function (e) {
+                            if (e.key === "Enter") {
+                                return true
+                            }
+                            else {
+                                return false;
+                            }
+                        }
                     }
 
 
@@ -125,6 +171,14 @@ document.addEventListener("DOMContentLoaded", function () {
                             clearGameBoard();
                             startGameCounter = 0;
                             losePopup.classList.remove('dis-none');
+                            document.onkeydown = function (e) {
+                                if (e.key === "Enter") {
+                                    return true
+                                }
+                                else {
+                                    return false;
+                                }
+                            }
                         }
                     };
 
@@ -138,11 +192,10 @@ document.addEventListener("DOMContentLoaded", function () {
     //-----------------------------------------
 
     //Check if user guess word
-
-    function winTheGame(){
-            winPopup.classList.remove("dis-none");
-            startGameCounter = 0;
-            clearGameBoard();
+    function winTheGame() {
+        winPopup.classList.remove("dis-none");
+        startGameCounter = 0;
+        clearGameBoard();
     }
 
     //Clearing game board and start new one
@@ -207,9 +260,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     //To do 
+    //check if all of the letters is in en/pl dictionary from a-z
     // lowercase and display "-" as other objcet
     // Display letters in box when select letters by users is correct.
     // Display message about win, and option to play again. 
+    // Hide api key
     // And more.
 
 });

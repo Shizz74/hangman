@@ -56,7 +56,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 startGameCounter = 1;
             }
             else {
-                return false;
+                //return false;
+                console.log("to tu");
             }
         }
     });
@@ -106,10 +107,10 @@ document.addEventListener("DOMContentLoaded", function () {
                                 console.log(newLetterArray.length)
                             }
                         }
-                        if(newLetterArray.length === 0){
-                            winTheGame();
-                        }
                     };
+                    if(newLetterArray.length === 0){
+                        winTheGame();
+                    }
 
 
 
@@ -123,7 +124,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         if (counter === 0) {
                             clearGameBoard();
                             startGameCounter = 0;
-                            losePopup.classList.add('visible');
                             losePopup.classList.remove('dis-none');
                         }
                     };
@@ -141,7 +141,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function winTheGame(){
             winPopup.classList.remove("dis-none");
-            console.log("Array is empty");
+            startGameCounter = 0;
+            clearGameBoard();
     }
 
     //Clearing game board and start new one
@@ -156,7 +157,6 @@ document.addEventListener("DOMContentLoaded", function () {
         while (removeLetters.firstChild) {
             removeLetters.removeChild(removeLetters.firstChild);
         };
-        losePopup.classList.add('dis-none');
         newSingleWord();
     }
     //-------------------------------

@@ -19,7 +19,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let buttonStart = document.querySelector("#startGame");
     let newWord = document.querySelector('#newWord');
-    let losePopup = document.querySelector(".popup-container");
+    let losePopup = document.querySelector("#losePopup");
+    let winPopup = document.querySelector("#winPopup");
 
     let word = "";
     let letterArray = [];
@@ -50,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (startGameCounter == 0) {
                 startGame();
                 losePopup.classList.add('dis-none');
+                winPopup.classList.add('dis-none');
                 document.querySelector(".conter-number").innerHTML = counter;
                 startGameCounter = 1;
             }
@@ -94,15 +96,18 @@ document.addEventListener("DOMContentLoaded", function () {
                             document.querySelectorAll("#char").innerHTML = letterArray[k];
                             goodLetter++;
                             letter = document.querySelector('#' + charStr).classList.add('green');
-
                         };
                         //Delete letter form letterArray
                         for (let z = 0; z < newLetterArray.length; z++) {
                             if (charStr == newLetterArray[z]) {
                                 console.log("letterArray: " + letterArray);
-                             newLetterArray.splice(z, 1);
-                               console.log("newletterArray: " + newLetterArray);
+                                newLetterArray.splice(z, 1);
+                                console.log("newletterArray: " + newLetterArray);
+                                console.log(newLetterArray.length)
                             }
+                        }
+                        if(newLetterArray.length === 0){
+                            winTheGame();
                         }
                     };
 
@@ -131,6 +136,13 @@ document.addEventListener("DOMContentLoaded", function () {
         //------------------------------------------------
     }
     //-----------------------------------------
+
+    //Check if user guess word
+
+    function winTheGame(){
+            winPopup.classList.remove("dis-none");
+            console.log("Array is empty");
+    }
 
     //Clearing game board and start new one
 
@@ -195,6 +207,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     //To do 
+    // lowercase and display "-" as other objcet
     // Display letters in box when select letters by users is correct.
     // Display message about win, and option to play again. 
     // And more.

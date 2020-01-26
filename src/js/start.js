@@ -21,8 +21,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let newWord = document.querySelector('#newWord');
     let losePopup = document.querySelector(".popup-container");
 
-    let word = "test";
-    let tab = [];
+    let word = "";
+    let letterArray = [];
     let i, k;
     let counter = 13;
     let goodLetter = 0;
@@ -67,9 +67,12 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector("#counter").className = "counter";
         //Split word to letters and display letter in DOM
         for (i = 0; i < word.length; i++) {
-            tab += [word.charAt(i)];
-            document.querySelector('#word').innerHTML += '<div id="char' + i + '" class="char">' + tab[i] + '</div>';
+            letterArray += [word.charAt(i)];
+            document.querySelector('#word').innerHTML += '<div id="char' + i + '" class="char"></div>';
         };
+        //let newLetterArray = letterArray.split(",");
+        let newLetterArray = [...letterArray];
+
 
         //Testing if keyboard pressed key is in word
         document.onkeypress = function (evt) {
@@ -79,20 +82,28 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log(charStr);
             //Test if letter was pressed before
             for (let m = 0; m < useLetter.length; m++) {
-                charStr == useLetter[m] ? letterWasUse = 1 : letterWasUse =0
-                }
+                charStr == useLetter[m] ? letterWasUse = 1 : letterWasUse = 0
+            }
 
             if (letterWasUse == 0) {
                 useLetter += charStr;
                 // Tested if pressed key is uppercase or lowercase and it's a letter
                 if (event.keyCode >= 97 && event.keyCode <= 122) {
-                    for (k = 0; k < tab.length; k++) {
-                        if (tab[k] === charStr) {
-                            document.querySelectorAll("#char").innerHTML = tab[k];
+                    for (k = 0; k < letterArray.length; k++) {
+                        if (letterArray[k] === charStr) {
+                            document.querySelectorAll("#char").innerHTML = letterArray[k];
                             goodLetter++;
                             letter = document.querySelector('#' + charStr).classList.add('green');
-                            console.log("dobrze " + tab[k] + " " + goodLetter);
+
                         };
+                        //Delete letter form letterArray
+                        for (let z = 0; z < newLetterArray.length; z++) {
+                            if (charStr == newLetterArray[z]) {
+                                console.log("letterArray: " + letterArray);
+                             newLetterArray.splice(z, 1);
+                               console.log("newletterArray: " + newLetterArray);
+                            }
+                        }
                     };
 
 
@@ -127,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let removeLetters = document.querySelector("#word");
 
         console.log("Czyszczenie");
-        tab = [];
+        letterArray = [];
         useLetter = [];
         word = "";
         while (removeLetters.firstChild) {
@@ -184,7 +195,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     //To do 
-    // Display keyboard after start the game, ane disamble them when user use that letters
+    // Display letters in box when select letters by users is correct.
     // Display message about win, and option to play again. 
     // And more.
 

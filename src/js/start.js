@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let startGameCounter = 0;
     let useLetter = [];
     let letterWasUse = 0;
-    const alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','q','p','r','s','t','u','v','w','x','y','z'];
+    const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'q', 'p', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
     let checkAlphabet = 0;
     let word2 = [];
     let word22;
@@ -61,21 +61,25 @@ document.addEventListener("DOMContentLoaded", function () {
                 word22 = word2.length;
                 for (let w = 0; w < word2.length; w++) {
                     //console.log("word2[w]: " + word2[w])
-                    for( let x = 0; x < alphabet.length; x++){
-                        if( word2[w] === alphabet[x]){
+                    for (let x = 0; x < alphabet.length; x++) {
+                        if (word2[w] === alphabet[x]) {
                             //console.log("alphabet[x]: " + alphabet[x])
-                            checkAlphabet +=1;
+                            checkAlphabet += 1;
                         }
                     }
                 }
-                console.log( word2.length + " and " + checkAlphabet);
+                console.log(word2.length + " and " + checkAlphabet);
                 console.log(word2);
                 console.log("Podmieniona " + word);
+                if (checkAlphabet !== word22 /*word22 its only for now, and it's words length*/) {
+                    newSingleWord();
+                    console.log("Odpałka");
+                }
             })
-            // if(checkAlphabet !== word22){
-            //     newSingleWord();
-            //     console.log("Odpałka");
-            // }
+        // if(checkAlphabet !== word22 /*word22 its only for now, and it's words length*/){
+        //     newSingleWord();
+        //     console.log("Odpałka");
+        // }
     }
 
     newSingleWord();
@@ -109,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
         for (i = 0; i < word.length; i++) {
             letterArray += [word.charAt(i)];
             console.log("Przeliterowanie: " + word[i]);
-            document.querySelector('#word').innerHTML += '<div id="char' + i + '" class="char"></div>';
+            document.querySelector('#word').innerHTML += '<div class="char ' + word[i] + '"></div>';
         };
         //let newLetterArray = letterArray.split(",");
         let newLetterArray = [...letterArray];
@@ -132,7 +136,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (evt.keyCode >= 97 && evt.keyCode <= 122) {
                     for (k = 0; k < letterArray.length; k++) {
                         if (letterArray[k] === charStr) {
-                            document.querySelectorAll("#char").innerHTML = letterArray[k];
+                           let displayLetters = []; 
+                            displayLetters = document.querySelectorAll('.' + charStr);
+                            for(let i = 0; i < displayLetters.length; i++){
+                                displayLetters[i].innerHTML = charStr;
+                            }
                             goodLetter++;
                             letter = document.querySelector('#' + charStr).classList.add('green');
                         };
@@ -265,6 +273,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Display letters in box when select letters by users is correct.
     // Display message about win, and option to play again. 
     // Hide api key
+    // Add hint for 1/2 of points
     // And more.
 
 });

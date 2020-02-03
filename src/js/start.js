@@ -23,7 +23,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let winPopup = document.querySelector("#winPopup");
 
     const apiUrl = "api_key=n727snhb1o62rha1onsq6xrkvee2s44b0hj9z85ryicflb6yi";
-    const randomWordUrl = "https://api.wordnik.com/v4/words.json/randomWord?hasDictionaryDef=true&excludePartOfSpeech=interjection%2Cpronoun%2Cpreposition%2Cabbreviation%2Caffix%2Carticle%2Cauxiliary-verb%2Cconjunction%2Cdefinite-article%2Cfamily-name%2Cgiven-name%2Cidiom%2Cimperative%2Cnoun-plural%2Cpast-participle%2Cproper-noun%2Cproper-noun-plural%2Csuffix%2Cverb-intransitive%2Cverb-transitive&"
+    const randomWordUrl = "https://api.wordnik.com/v4/words.json/randomWord?hasDictionaryDef=true&excludePartOfSpeech=interjection%2Cpronoun%2Cpreposition%2Cabbreviation%2Caffix%2Carticle%2Cauxiliary-verb%2Cconjunction%2Cdefinite-article%2Cfamily-name%2Cgiven-name%2Cidiom%2Cimperative%2Cnoun-plural%2Cpast-participle%2Cproper-noun%2Cproper-noun-plural%2Csuffix%2Cverb-intransitive%2Cverb-transitive&";
+    const wordDefinitionUrl = "https://api.wordnik.com/v4/word.json/" + word + "/definitions?limit=200&includeRelated=false&useCanonical=false&includeTags=false&";
     let word = "";
     let letterArray = [];
     let i, k;
@@ -36,6 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let checkAlphabet = 0;
     let word2 = [];
     let word22;
+    let definition;
 
 
     // ,noun-posessive
@@ -52,6 +54,10 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(resp => resp.json())
             .then(resp => {
                 word = resp.word;
+                if(word) {
+                    wordDefinition();
+                    console.log(`odpalam ${word}`);
+                }
                 checkAlphabet = 0;
                 console.log("Test: " + checkAlphabet);
                 console.log("Słowo to: " + word);
@@ -75,12 +81,19 @@ document.addEventListener("DOMContentLoaded", function () {
                     newSingleWord();
                     console.log("Odpałka");
                 }
+                console.log(`Definicja ${definition}`);
             })
-        // if(checkAlphabet !== word22 /*word22 its only for now, and it's words length*/){
-        //     newSingleWord();
-        //     console.log("Odpałka");
-        // }
     }
+
+
+    function wordDefinition() {
+        fetch(wordDefinitionUrl + apiUrl)
+            .then(resp => resp.json())
+            .then(resp => {
+                definition = resp.text;
+            })
+    }
+    
 
     newSingleWord();
 
@@ -91,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 startGame();
                 losePopup.classList.add('dis-none');
                 winPopup.classList.add('dis-none');
-                document.querySelector(".conter-number").innerHTML = counter;
+                //document.querySelector(".conter-number").innerHTML = counter;
                 startGameCounter = 1;
             }
             else {
@@ -274,6 +287,17 @@ document.addEventListener("DOMContentLoaded", function () {
     // Display message about win, and option to play again. 
     // Hide api key
     // Add hint for 1/2 of points
+    //download definition
     // And more.
+
+    // wood-3
+    // wood-2
+    // wood-1
+    // arm-right
+    // arm-left
+    // leg-left
+    // leg-right
+    // head-line
+    // corpse
 
 });

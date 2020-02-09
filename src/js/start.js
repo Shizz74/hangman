@@ -21,6 +21,24 @@ document.addEventListener("DOMContentLoaded", function () {
     let newWord = document.querySelector('#newWord');
     let losePopup = document.querySelector("#losePopup");
     let winPopup = document.querySelector("#winPopup");
+    // let svgWood1 = document.querySelector('#wood-1');
+    // let svgWood2 = document.querySelector('#wood-2');
+    // let svgWood3 = document.querySelector('#wood-3');
+    // let svgWood4 = document.querySelector('#wood-4');
+    // let svgWood5 = document.querySelector('#wood-5');
+    // let head = document.querySelector('#head-line');
+    // let svgArmRight = document.querySelector('#arm-right');
+    // let svgArmLeft = document.querySelector('#arm-left');
+    // let svgLegLeft = document.querySelector('#leg-left');
+    // let svgLegRight = document.querySelector('#leg-right');
+    // let svgCorpse = document.querySelector('#corpse');
+    const Svg = ['#wood-1', '#wood-2', '#wood-3', '#wood-4', '#wood-5', '#head-line', '#arm-right', '#arm-left', '#leg-left', '#leg-right', '#corpse']
+
+    for(let i = 0; i<Svg.length; i++){
+        document.querySelector(Svg[i]).classList.add('dis-none');
+    }
+
+
 
     const apiUrl = "api_key=n727snhb1o62rha1onsq6xrkvee2s44b0hj9z85ryicflb6yi";
     const randomWordUrl = "https://api.wordnik.com/v4/words.json/randomWord?hasDictionaryDef=true&excludePartOfSpeech=interjection%2Cpronoun%2Cpreposition%2Cabbreviation%2Caffix%2Carticle%2Cauxiliary-verb%2Cconjunction%2Cdefinite-article%2Cfamily-name%2Cgiven-name%2Cidiom%2Cimperative%2Cnoun-plural%2Cpast-participle%2Cproper-noun%2Cproper-noun-plural%2Csuffix%2Cverb-intransitive%2Cverb-transitive&";
@@ -28,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let word = "";
     let letterArray = [];
     let i, k;
-    let counter = 13;
+    let counter = 11;
     let goodLetter = 0;
     let startGameCounter = 0;
     let useLetter = [];
@@ -115,11 +133,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Start game with first word
     function startGame() {
+        console.log(Svg);
         document.onkeydown = function (e) {
             return true
         }
         createKeyboard();
-        counter = 14; // Change value of counter from 13 to 14
+        counter = 11;
         console.log("Słowo to: " + word);
         document.querySelector("#counter").className = "counter";
         //Split word to letters and display letter in DOM
@@ -289,15 +308,4 @@ document.addEventListener("DOMContentLoaded", function () {
     // Add hint for 1/2 of points
     //download definition
     // And more.
-
-    // wood-3
-    // wood-2
-    // wood-1
-    // arm-right
-    // arm-left
-    // leg-left
-    // leg-right
-    // head-line
-    // corpse
-
 });

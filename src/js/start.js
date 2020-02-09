@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // let svgLegLeft = document.querySelector('#leg-left');
     // let svgLegRight = document.querySelector('#leg-right');
     // let svgCorpse = document.querySelector('#corpse');
-    const Svg = ['#wood-1', '#wood-2', '#wood-3', '#wood-4', '#wood-5', '#head-line', '#arm-right', '#arm-left', '#leg-left', '#leg-right', '#corpse']
+    const Svg = ['#arm-right', '#arm-left', '#leg-left', '#leg-right', '#corpse', '#head-line', '#wood-3', '#wood-2', '#wood-4', '#wood-5', '#wood-1'];
 
     for(let i = 0; i<Svg.length; i++){
         document.querySelector(Svg[i]).classList.add('dis-none');
@@ -203,7 +203,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     // Checking if life is 0 and user lose
                     if (goodLetter == 0) {
-                        letter = document.querySelector('#' + charStr).classList.add('red');
+                        document.querySelector('#' + charStr).classList.add('red');
+                        document.querySelector(Svg[counter-1]).classList.remove('dis-none');
                         counter--;
                         //document.querySelector(".conter-number").innerHTML = counter;
 

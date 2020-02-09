@@ -186,7 +186,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (goodLetter == 0) {
                         letter = document.querySelector('#' + charStr).classList.add('red');
                         counter--;
-                        document.querySelector(".conter-number").innerHTML = counter;
+                        //document.querySelector(".conter-number").innerHTML = counter;
 
                         if (counter === 0) {
                             clearGameBoard();

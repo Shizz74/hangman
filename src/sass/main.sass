@@ -187,4 +187,16 @@ body
   background: #51ff0098
 
 
-  
+// SVG animation
+
+#men
+  border: 1px solid black !important
+  animation: swing ease-in-out 1s infinite alternate
+  transform-origin: center top
+  transform: rotate(-1deg)
+
+@keyframes swing
+  0%
+    transform: rotate(2deg)
+  100%
+    transform: rotate(-2deg)

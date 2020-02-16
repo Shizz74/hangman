@@ -21,22 +21,10 @@ document.addEventListener("DOMContentLoaded", function () {
     let newWord = document.querySelector('#newWord');
     let losePopup = document.querySelector("#losePopup");
     let winPopup = document.querySelector("#winPopup");
-    // let svgWood1 = document.querySelector('#wood-1');
-    // let svgWood2 = document.querySelector('#wood-2');
-    // let svgWood3 = document.querySelector('#wood-3');
-    // let svgWood4 = document.querySelector('#wood-4');
-    // let svgWood5 = document.querySelector('#wood-5');
-    // let head = document.querySelector('#head-line');
-    // let svgArmRight = document.querySelector('#arm-right');
-    // let svgArmLeft = document.querySelector('#arm-left');
-    // let svgLegLeft = document.querySelector('#leg-left');
-    // let svgLegRight = document.querySelector('#leg-right');
-    // let svgCorpse = document.querySelector('#corpse');
+    let heroSection = document.querySelector(".hero-section");
     const Svg = ['#arm-right', '#arm-left', '#leg-left', '#leg-right', '#corpse', '#head-line', '#wood-3', '#wood-2', '#wood-4', '#wood-5', '#wood-1'];
 
-    for(let i = 0; i<Svg.length; i++){
-        document.querySelector(Svg[i]).classList.add('dis-none');
-    }
+    
 
 
 
@@ -114,6 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
 
     newSingleWord();
+    hideGallows()
 
 
     $(document).keydown(function (e) {
@@ -122,6 +111,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 startGame();
                 losePopup.classList.add('dis-none');
                 winPopup.classList.add('dis-none');
+                heroSection.classList.add('dis-none');
                 //document.querySelector(".conter-number").innerHTML = counter;
                 startGameCounter = 1;
             }
@@ -133,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Start game with first word
     function startGame() {
-        console.log(Svg);
+        hideGallows();
         document.onkeydown = function (e) {
             return true
         }
@@ -235,9 +225,11 @@ document.addEventListener("DOMContentLoaded", function () {
     //Check if user guess word
     function winTheGame() {
         winPopup.classList.remove("dis-none");
+        winPopup.classList.add("popup-animation");
         startGameCounter = 0;
         clearGameBoard();
     }
+    //---------------------------
 
     //Clearing game board and start new one
 
@@ -299,14 +291,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     //-------------------------------------
 
-
-    //To do 
-    //check if all of the letters is in en/pl dictionary from a-z
-    // lowercase and display "-" as other objcet
-    // Display letters in box when select letters by users is correct.
-    // Display message about win, and option to play again. 
-    // Hide api key
-    // Add hint for 1/2 of points
+    // Hide gallows
+    function hideGallows(){
+        for(let i = 0; i<Svg.length; i++){
+            document.querySelector(Svg[i]).classList.add('dis-none');
+        }
+    };
+    //------------------------------------------
+    //TO DO
     //download definition
     // And more.
 });

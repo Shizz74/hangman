@@ -1,36 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    // For now don't use this script. Use function newSingleWord()
-    // {
-    //     buttons.addEventListener("click", function() {
-    //         fetch("http://api.wordnik.com/v4/words.json/randomWord?api_key=n727snhb1o62rha1onsq6xrkvee2s44b0hj9z85ryicflb6yi")
-    //         .then(resp => resp.json())    
-    //         .then(resp => {
-    //                 word = resp.word;
-    //                 console.log("Podmieniona " + word);
-    //                 startGame();
-    //             })
-    //     })
-    // }
-
-
-
-
-
-    let buttonStart = document.querySelector("#startGame");
-    let newWord = document.querySelector('#newWord');
     let losePopup = document.querySelector("#losePopup");
     let winPopup = document.querySelector("#winPopup");
     let heroSection = document.querySelector(".hero-section");
     const Svg = ['#arm-right', '#arm-left', '#leg-left', '#leg-right', '#corpse', '#head-line', '#wood-3', '#wood-2', '#wood-4', '#wood-5', '#wood-1'];
 
-    
-
-
-
     const apiUrl = "api_key=n727snhb1o62rha1onsq6xrkvee2s44b0hj9z85ryicflb6yi";
-    const randomWordUrl = "https://api.wordnik.com/v4/words.json/randomWord?hasDictionaryDef=true&excludePartOfSpeech=interjection%2Cpronoun%2Cpreposition%2Cabbreviation%2Caffix%2Carticle%2Cauxiliary-verb%2Cconjunction%2Cdefinite-article%2Cfamily-name%2Cgiven-name%2Cidiom%2Cimperative%2Cnoun-plural%2Cpast-participle%2Cproper-noun%2Cproper-noun-plural%2Csuffix%2Cverb-intransitive%2Cverb-transitive&";
-    const wordDefinitionUrl = "https://api.wordnik.com/v4/word.json/" + word + "/definitions?limit=200&includeRelated=false&useCanonical=false&includeTags=false&";
+    const randomWordUrl = "https://api.wordnik.com/v4/words.json/randomWord?hasDictionaryDef=true&excludePartOfSpeech=interjection%2Cpronoun%2Cpreposition%2Cabbreviation%2Caffix%2Carticle%2Cauxiliary-verb%2Cconjunction%2Cdefinite-article%2Cfamily-name%2Cgiven-name%2Cidiom%2Cimperative%2Cnoun-plural%2Cpast-participle%2Cproper-noun%2Cproper-noun-plural%2Csuffix%2Cverb-intransitive%2Cverb-transitive&"
     let word = "";
     let letterArray = [];
     let i, k;
@@ -41,69 +17,34 @@ document.addEventListener("DOMContentLoaded", function () {
     let letterWasUse = 0;
     const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'q', 'p', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
     let checkAlphabet = 0;
-    let word2 = [];
-    let word22;
-    let definition;
-
-
-    // ,noun-posessive
-    // ,phrasal-prefix
-    // ,proper-noun-posessive
-
-
-
-    //buttonStart.addEventListener("click", startGame);
-    //newWord.addEventListener("click", clearGameBoard);
+    let wordArray = [];
+    let wordArrayLenght;
+    let tempWord = "";
 
     function newSingleWord() {
         fetch(randomWordUrl + apiUrl)
             .then(resp => resp.json())
             .then(resp => {
                 word = resp.word;
-                if(word) {
-                    wordDefinition();
-                    console.log(`odpalam ${word}`);
-                }
                 checkAlphabet = 0;
-                console.log("Test: " + checkAlphabet);
-                console.log("Słowo to: " + word);
                 word = word.toLowerCase();
-                console.log("Zmienjszone słowo to: " + word);
-                word2 = [...word];
-                word22 = word2.length;
-                for (let w = 0; w < word2.length; w++) {
-                    //console.log("word2[w]: " + word2[w])
+                wordArray = [...word];
+                wordArrayLenght = wordArray.length;
+                for (let w = 0; w < wordArray.length; w++) {
                     for (let x = 0; x < alphabet.length; x++) {
-                        if (word2[w] === alphabet[x]) {
-                            //console.log("alphabet[x]: " + alphabet[x])
+                        if (wordArray[w] === alphabet[x]) {
                             checkAlphabet += 1;
                         }
                     }
                 }
-                console.log(word2.length + " and " + checkAlphabet);
-                console.log(word2);
-                console.log("Podmieniona " + word);
-                if (checkAlphabet !== word22 /*word22 its only for now, and it's words length*/) {
+                if (checkAlphabet !== wordArrayLenght) {
                     newSingleWord();
-                    console.log("Odpałka");
                 }
-                console.log(`Definicja ${definition}`);
             })
     }
-
-
-    function wordDefinition() {
-        fetch(wordDefinitionUrl + apiUrl)
-            .then(resp => resp.json())
-            .then(resp => {
-                definition = resp.text;
-            })
-    }
-    
 
     newSingleWord();
     hideGallows()
-
 
     $(document).keydown(function (e) {
         if (e.key === "Enter") {
@@ -112,7 +53,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 losePopup.classList.add('dis-none');
                 winPopup.classList.add('dis-none');
                 heroSection.classList.add('dis-none');
-                //document.querySelector(".conter-number").innerHTML = counter;
                 startGameCounter = 1;
             }
             else {
@@ -121,7 +61,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Start game with first word
     function startGame() {
         hideGallows();
         document.onkeydown = function (e) {
@@ -129,29 +68,29 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         createKeyboard();
         counter = 11;
-        console.log("Słowo to: " + word);
-        document.querySelector("#counter").className = "counter";
+        let removeLetters = document.querySelector("#word");
+        if(removeLetters){
+            while (removeLetters.firstChild) {
+                removeLetters.removeChild(removeLetters.firstChild);
+            };
+        };
         //Split word to letters and display letter in DOM
         for (i = 0; i < word.length; i++) {
             letterArray += [word.charAt(i)];
-            console.log("Przeliterowanie: " + word[i]);
             document.querySelector('#word').innerHTML += '<div class="char ' + word[i] + '"></div>';
         };
-        //let newLetterArray = letterArray.split(",");
-        let newLetterArray = [...letterArray];
 
+        let newLetterArray = [...letterArray];
 
         //Testing if keyboard pressed key is in word
         document.onkeypress = function (evt) {
             evt = evt || window.event;
             let charCode = evt.keyCode || evt.which;
             let charStr = String.fromCharCode(charCode);
-            console.log(charStr);
             //Test if letter was pressed before
             for (let m = 0; m < useLetter.length; m++) {
                 charStr == useLetter[m] ? letterWasUse = 1 : letterWasUse = 0
             }
-
             if (letterWasUse == 0) {
                 useLetter += charStr;
                 // Tested if pressed key is uppercase or lowercase and it's a letter
@@ -188,16 +127,11 @@ document.addEventListener("DOMContentLoaded", function () {
                         }
                     }
 
-
-
-
                     // Checking if life is 0 and user lose
                     if (goodLetter == 0) {
                         document.querySelector('#' + charStr).classList.add('red');
                         document.querySelector(Svg[counter-1]).classList.remove('dis-none');
                         counter--;
-                        //document.querySelector(".conter-number").innerHTML = counter;
-
                         if (counter === 0) {
                             clearGameBoard();
                             startGameCounter = 0;
@@ -234,15 +168,11 @@ document.addEventListener("DOMContentLoaded", function () {
     //Clearing game board and start new one
 
     function clearGameBoard() {
-        let removeLetters = document.querySelector("#word");
-
-        console.log("Czyszczenie");
+        document.querySelector('.wordLose').innerHTML = "Word what I hide is: " + word;
+        document.querySelector('.wordWin').innerHTML = "Word what I hide is: " + word;
         letterArray = [];
         useLetter = [];
         word = "";
-        while (removeLetters.firstChild) {
-            removeLetters.removeChild(removeLetters.firstChild);
-        };
         newSingleWord();
     }
     //-------------------------------
@@ -298,7 +228,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
     //------------------------------------------
+
+
+
     //TO DO
-    //download definition
-    // And more.
+    //clear code
 });
